@@ -1,9 +1,14 @@
 # Bootstrap — Terraform remote state backend
 
-Creates the resources that every environment's `backend.tf` depends on:
+Creates the resource that every environment's `backend.tf` depends on:
 
-- **S3 bucket** `sufra-terraform-state` — versioned, encrypted, private
-- **DynamoDB table** `sufra-terraform-locks` — state locking
+- **S3 bucket** `sufra-terraform-state-<account_id>` — versioned, encrypted,
+  private. State locking uses S3 **native lockfiles** (`use_lockfile = true`),
+  so no DynamoDB table is required.
+
+> S3 bucket names are **global across all AWS accounts**, so the name includes
+> the account ID to avoid collisions. Update the default in `variables.tf` and
+> every `environments/*/backend.tf` if your account ID differs.
 
 This is the **chicken-and-egg** step: the remote backend can't store its own
 state, so this config uses **local state** and is run once, manually.
@@ -16,7 +21,7 @@ terraform init
 terraform apply
 ```
 
-After this succeeds, the buckets/table exist and you can `terraform init` any
+After this succeeds, the bucket exists and you can `terraform init` any
 environment (`environments/dev`, `staging`, `production`).
 
 ## Handling the local state file
@@ -26,8 +31,8 @@ After apply, this directory holds a local `terraform.tfstate`. Two options:
 1. **Migrate it into the bucket it just created** (recommended):
    add a `backend "s3"` block here with `key = "bootstrap/terraform.tfstate"`,
    then `terraform init -migrate-state`.
-2. **Leave it local** and store it somewhere safe (it only manages two
-   resources). Note: it is gitignored by default — do not commit secrets.
+2. **Leave it local** and store it somewhere safe. Note: it is gitignored by
+   default — do not commit secrets.
 
 ## Optional: GitHub Actions CI role
 
@@ -48,8 +53,8 @@ their AWS jobs until that variable is set. The default attached policy is
 
 ## Names must match
 
-`state_bucket_name` and `lock_table_name` here must match the values hard-coded
-in every `environments/*/backend.tf`. If you change them, update those too.
+`state_bucket_name` here must match the `bucket` value hard-coded in every
+`environments/*/backend.tf`. If you change it, update those too.
 
 > The state bucket has `prevent_destroy = true`. To intentionally tear it down,
 > remove that lifecycle block first.

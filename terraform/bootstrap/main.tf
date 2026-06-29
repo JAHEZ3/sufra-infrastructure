@@ -1,5 +1,6 @@
 # Bootstrap: creates the remote state backend that every environment uses -
-# an encrypted, versioned S3 bucket plus a DynamoDB table for state locking.
+# an encrypted, versioned S3 bucket. State locking uses S3 native lockfiles
+# (use_lockfile = true in each backend), so no DynamoDB table is needed.
 #
 # Run this ONCE, with local state, before `terraform init` in any environment:
 #   cd terraform/bootstrap
@@ -55,26 +56,4 @@ resource "aws_s3_bucket_ownership_controls" "state" {
   rule {
     object_ownership = "BucketOwnerEnforced"
   }
-}
-
-# ---------------------------------------------------------------------------
-# Lock table
-# ---------------------------------------------------------------------------
-resource "aws_dynamodb_table" "locks" {
-  name         = var.lock_table_name
-  billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "LockID"
-
-  attribute {
-    name = "LockID"
-    type = "S"
-  }
-
-  point_in_time_recovery {
-    enabled = true
-  }
-
-  tags = merge(var.tags, {
-    Name = var.lock_table_name
-  })
 }

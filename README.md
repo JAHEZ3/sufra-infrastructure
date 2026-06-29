@@ -45,9 +45,14 @@ terraform init
 terraform apply
 ```
 
-Creates the encrypted, versioned S3 bucket (`sufra-terraform-state`) and the
-DynamoDB lock table (`sufra-terraform-locks`) referenced by every
-environment's `backend.tf`. See `bootstrap/README.md` for details.
+Creates the encrypted, versioned S3 bucket
+(`sufra-terraform-state-<account_id>`) referenced by every environment's
+`backend.tf`. State locking uses S3 native lockfiles (no DynamoDB table).
+See `bootstrap/README.md` for details.
+
+> The bucket name includes the AWS account ID because S3 names are globally
+> unique. Change it in `bootstrap/variables.tf` and all `backend.tf` files if
+> your account differs from the committed default.
 
 ### 2. Deploy an environment
 

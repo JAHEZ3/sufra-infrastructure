@@ -8,11 +8,6 @@ output "state_bucket_arn" {
   value       = aws_s3_bucket.state.arn
 }
 
-output "lock_table_name" {
-  description = "Name of the DynamoDB lock table. Use this in each environment's backend.tf."
-  value       = aws_dynamodb_table.locks.name
-}
-
 output "region" {
   description = "Region the backend resources live in."
   value       = var.aws_region

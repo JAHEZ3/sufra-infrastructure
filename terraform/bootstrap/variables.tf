@@ -11,15 +11,9 @@ variable "aws_region" {
 }
 
 variable "state_bucket_name" {
-  description = "Globally-unique name for the Terraform state bucket. Must match the bucket in each environment's backend.tf."
+  description = "Globally-unique name for the Terraform state bucket. Must match the bucket in each environment's backend.tf. S3 bucket names are global across all AWS accounts, so this includes the account ID to avoid collisions."
   type        = string
-  default     = "sufra-terraform-state"
-}
-
-variable "lock_table_name" {
-  description = "Name of the DynamoDB table used for state locking. Must match each environment's backend.tf."
-  type        = string
-  default     = "sufra-terraform-locks"
+  default     = "sufra-terraform-state-220719767281"
 }
 
 # --- GitHub Actions OIDC (CI/CD) -----------------------------------------

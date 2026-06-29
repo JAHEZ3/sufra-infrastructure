@@ -2,10 +2,10 @@
 
 terraform {
   backend "s3" {
-    bucket         = "sufra-terraform-state"
-    key            = "env/production/terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "sufra-terraform-locks"
-    encrypt        = true
+    bucket       = "sufra-terraform-state-220719767281"
+    key          = "env/production/terraform.tfstate"
+    region       = "us-east-1"
+    use_lockfile = true
+    encrypt      = true
   }
 }
