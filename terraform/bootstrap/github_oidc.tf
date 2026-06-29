@@ -6,10 +6,12 @@
 locals {
   github_oidc_enabled = var.create_github_oidc
 
-  # Default: trust any branch/tag/environment of the named repo.
-  github_subjects = coalesce(
-    var.github_subject_claims,
-    ["repo:${var.github_owner}/${var.github_repo}:*"],
+  # Default: trust any branch/tag/environment of the named repo. Guarded so the
+  # interpolation is not evaluated with null owner/repo when OIDC is disabled.
+  github_subjects = (
+    var.github_subject_claims != null ? var.github_subject_claims :
+    var.github_owner != null && var.github_repo != null ?
+    ["repo:${var.github_owner}/${var.github_repo}:*"] : []
   )
 }
 
