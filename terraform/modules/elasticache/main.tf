@@ -31,7 +31,9 @@ resource "aws_security_group" "this" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "from_sg" {
-  for_each = toset(var.allowed_security_group_ids)
+  # Keyed by index so the set keys are known at plan time even when the SG IDs
+  # come from resources created in the same apply (e.g. the EKS cluster SG).
+  for_each = { for idx, sg_id in var.allowed_security_group_ids : tostring(idx) => sg_id }
 
   security_group_id            = aws_security_group.this.id
   description                  = "Cache access from security group"

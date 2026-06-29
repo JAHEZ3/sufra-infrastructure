@@ -174,7 +174,9 @@ resource "aws_wafv2_web_acl" "this" {
 # Resource associations (REGIONAL only, e.g. ALB)
 # ---------------------------------------------------------------------------
 resource "aws_wafv2_web_acl_association" "this" {
-  for_each = var.scope == "REGIONAL" ? toset(var.associate_resource_arns) : toset([])
+  # Keyed by index so the keys are known at plan time even when the resource
+  # ARNs (e.g. the ALB) are created in the same apply.
+  for_each = var.scope == "REGIONAL" ? { for idx, arn in var.associate_resource_arns : tostring(idx) => arn } : {}
 
   resource_arn = each.value
   web_acl_arn  = aws_wafv2_web_acl.this.arn
