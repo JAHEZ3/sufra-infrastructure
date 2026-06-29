@@ -1,0 +1,40 @@
+# Copy to terraform.tfvars and adjust. terraform.tfvars is gitignored.
+
+project     = "sufra"
+environment = "dev"
+aws_region  = "us-east-1"
+
+# Networking
+vpc_cidr             = "10.10.0.0/16"
+availability_zones   = ["us-east-1a", "us-east-1b"]
+public_subnet_cidrs  = ["10.10.0.0/24", "10.10.1.0/24"]
+private_subnet_cidrs = ["10.10.10.0/24", "10.10.11.0/24"]
+
+# DNS / TLS - leave false until you own a real, delegated domain.
+enable_dns  = false
+domain_name = "dev.sufra.com"
+
+# EKS
+cluster_version = "1.30"
+node_groups = {
+  general = {
+    instance_types = ["t3.medium"]
+    desired_size   = 2
+    min_size       = 1
+    max_size       = 3
+  }
+}
+
+# ECR
+ecr_repositories = ["api", "web", "worker"]
+
+# RDS
+db_engine_version = "16.3"
+db_instance_class = "db.t3.micro"
+db_name           = "sufra"
+
+# ElastiCache
+cache_node_type = "cache.t3.micro"
+
+# Observability
+alarm_email_endpoints = ["ops@sufra.com"]

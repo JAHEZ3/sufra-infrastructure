@@ -1,0 +1,56 @@
+# Copy to terraform.tfvars and adjust. terraform.tfvars is gitignored.
+
+project     = "sufra"
+environment = "production"
+aws_region  = "us-east-1"
+
+# Networking - 3 AZs for high availability
+vpc_cidr             = "10.30.0.0/16"
+availability_zones   = ["us-east-1a", "us-east-1b", "us-east-1c"]
+public_subnet_cidrs  = ["10.30.0.0/24", "10.30.1.0/24", "10.30.2.0/24"]
+private_subnet_cidrs = ["10.30.10.0/24", "10.30.11.0/24", "10.30.12.0/24"]
+
+# Environment behavior - production: HA + protection on
+single_nat_gateway     = false # one NAT per AZ
+s3_force_destroy       = false
+db_multi_az            = true
+db_deletion_protection = true
+db_skip_final_snapshot = false
+cache_num_nodes        = 3
+
+# DNS / TLS - enable once sufra.com is delegated to the Route53 zone
+enable_dns  = false
+domain_name = "sufra.com"
+
+# EKS
+cluster_version = "1.30"
+node_groups = {
+  general = {
+    instance_types = ["m5.large"]
+    desired_size   = 3
+    min_size       = 3
+    max_size       = 6
+  }
+  spot = {
+    instance_types = ["m5.large", "m5a.large"]
+    capacity_type  = "SPOT"
+    desired_size   = 2
+    min_size       = 0
+    max_size       = 6
+    labels         = { workload = "batch" }
+  }
+}
+
+# ECR
+ecr_repositories = ["api", "web", "worker"]
+
+# RDS
+db_engine_version = "16.3"
+db_instance_class = "db.r6g.large"
+db_name           = "sufra"
+
+# ElastiCache
+cache_node_type = "cache.r6g.large"
+
+# Observability
+alarm_email_endpoints = ["ops@sufra.com", "oncall@sufra.com"]
