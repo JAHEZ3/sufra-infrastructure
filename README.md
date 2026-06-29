@@ -68,7 +68,11 @@ Two workflows in `.github/workflows/`:
 | `terraform-plan.yml`  | Pull request | `fmt` + `validate` + `plan` for every environment; posts each plan as a PR comment |
 | `terraform-apply.yml` | Merge to `main` | `apply` in order **dev → staging → production** |
 
-Authentication uses **GitHub OIDC** — no static AWS keys. Setup:
+Authentication uses **GitHub OIDC** — no static AWS keys. The AWS-dependent
+jobs are gated on the `AWS_ROLE_ARN` repo **variable**: until it is set they
+**skip** (grey) rather than fail, so the workflows stay green before setup.
+
+Setup:
 
 1. Enable the CI role in bootstrap:
    ```bash
@@ -78,7 +82,10 @@ Authentication uses **GitHub OIDC** — no static AWS keys. Setup:
      -var="github_owner=<org>" \
      -var="github_repo=sufra-infrastructure"
    ```
-2. Copy the `github_ci_role_arn` output into the repo secret **`AWS_ROLE_ARN`**.
+2. Set the repo **variable** **`AWS_ROLE_ARN`** to the `github_ci_role_arn`
+   output (Settings → Secrets and variables → Actions → **Variables**). An IAM
+   role ARN is not sensitive, and a *variable* (unlike a *secret*) can gate the
+   jobs via `if:`.
 3. (Optional) set the repo variable **`AWS_REGION`** (defaults to `us-east-1`).
 4. In **Settings → Environments**, create `dev`, `staging`, `production` and add
    **required reviewers** to `staging`/`production` to gate those applies.

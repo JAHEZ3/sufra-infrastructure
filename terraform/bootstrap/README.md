@@ -41,9 +41,10 @@ terraform apply \
   -var="github_repo=sufra-infrastructure"
 ```
 
-Then set the `github_ci_role_arn` output as the repo secret `AWS_ROLE_ARN`.
-The default attached policy is `AdministratorAccess` — tighten it via
-`ci_role_policy_arn` for real accounts.
+Then set the `github_ci_role_arn` output as the repo **variable** `AWS_ROLE_ARN`
+(Settings → Secrets and variables → Actions → Variables). The CI workflows skip
+their AWS jobs until that variable is set. The default attached policy is
+`AdministratorAccess` — tighten it via `ci_role_policy_arn` for real accounts.
 
 ## Names must match
 

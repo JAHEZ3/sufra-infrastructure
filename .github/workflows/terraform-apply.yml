@@ -28,6 +28,9 @@ jobs:
   apply-dev:
     name: Apply dev
     runs-on: ubuntu-latest
+    # Skips (does not fail) until the AWS_ROLE_ARN repo variable is set.
+    # Downstream staging/production skip too via `needs`.
+    if: ${{ vars.AWS_ROLE_ARN != '' }}
     environment: dev
     defaults:
       run:
@@ -39,7 +42,7 @@ jobs:
           terraform_version: ${{ env.TF_VERSION }}
       - uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
       - run: terraform init -input=false
       - run: terraform apply -input=false -auto-approve -var-file=terraform.tfvars.example
@@ -59,7 +62,7 @@ jobs:
           terraform_version: ${{ env.TF_VERSION }}
       - uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
       - run: terraform init -input=false
       - run: terraform apply -input=false -auto-approve -var-file=terraform.tfvars.example
@@ -79,7 +82,7 @@ jobs:
           terraform_version: ${{ env.TF_VERSION }}
       - uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
       - run: terraform init -input=false
       - run: terraform apply -input=false -auto-approve -var-file=terraform.tfvars.example
