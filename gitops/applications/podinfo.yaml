@@ -11,7 +11,7 @@ spec:
   project: default
 
   source:
-    repoURL: git@github.com:JAHEZ3/sufra-infrastructure.git
+    repoURL: https://github.com/JAHEZ3/sufra-infrastructure.git
     targetRevision: main
     path: gitops/apps/podinfo
 
