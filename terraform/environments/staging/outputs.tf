@@ -25,6 +25,11 @@ output "eks_oidc_provider_arn" {
   value       = module.eks.oidc_provider_arn
 }
 
+output "alb_controller_role_arn" {
+  description = "IRSA role ARN for the AWS Load Balancer Controller service account."
+  value       = module.alb_controller.role_arn
+}
+
 # --- ECR ------------------------------------------------------------------
 output "ecr_repository_urls" {
   description = "ECR repository URLs."

@@ -70,6 +70,17 @@ module "eks" {
   node_groups      = var.node_groups
 }
 
+# IRSA role for the AWS Load Balancer Controller (install the controller via
+# Helm separately and annotate its service account with the role ARN output).
+module "alb_controller" {
+  source = "../../modules/eks-alb-controller"
+
+  project           = var.project
+  environment       = var.environment
+  oidc_provider_arn = module.eks.oidc_provider_arn
+  oidc_provider_url = module.eks.oidc_provider_url
+}
+
 # ===========================================================================
 # DNS + TLS (optional - requires a real, delegated domain)
 # ===========================================================================
