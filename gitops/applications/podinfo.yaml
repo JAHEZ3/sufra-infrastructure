@@ -1,0 +1,27 @@
+# ArgoCD Application: watches the podinfo manifests in Git and keeps the
+# cluster in sync automatically (GitOps).
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: podinfo
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/JAHEZ3/sufra-infrastructure.git
+    targetRevision: main
+    path: gitops/apps/podinfo
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: podinfo
+
+  syncPolicy:
+    automated:
+      prune: true # delete resources removed from Git
+      selfHeal: true # revert manual changes back to Git state
+    syncOptions:
+      - CreateNamespace=true
