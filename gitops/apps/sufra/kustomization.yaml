@@ -7,33 +7,39 @@ namespace: sufra
 # ArgoCD via ignoreDifferences/orphaned handling. The RDS master password lives
 # in AWS Secrets Manager. See gitops/README.md.
 resources:
-  - namespace.yaml
-  - serviceaccount.yaml
-  - configmap.yaml
-  - infra.yaml       # postgres (fallback) + redis + nats
-  - backend.yaml     # 6 NestJS microservices
-  - frontend.yaml    # client + dashboard + paneldashboard
-  - services.yaml
-  - ingress.yaml
+- namespace.yaml
+- serviceaccount.yaml
+- configmap.yaml
+- infra.yaml
+- backend.yaml
+- frontend.yaml
+- services.yaml
+- ingress.yaml
 
 # CI updates the tags below on every release:
 #   kustomize edit set image <ECR>/sufra/<svc>=<ECR>/sufra/<svc>:<sha>
 images:
-  - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/api-gateway
-    newTag: sha-3b3e185
-  - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/auth-service
-    newTag: sha-3b3e185
-  - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/order-service
-    newTag: sha-3b3e185
-  - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/restaurant-service
-    newTag: sha-3b3e185
-  - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/manager-service
-    newTag: sha-3b3e185
-  - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/notification-service
-    newTag: sha-3b3e185
-  - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/client
-    newTag: v2
-  - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/dashboard
-    newTag: v2
-  - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/paneldashboard
-    newTag: v2
+- name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/api-gateway
+  newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/api-gateway
+  newTag: sha-2e18ccd
+- name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/auth-service
+  newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/auth-service
+  newTag: sha-2e18ccd
+- name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/client
+  newTag: v2
+- name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/dashboard
+  newTag: v2
+- name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/manager-service
+  newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/manager-service
+  newTag: sha-2e18ccd
+- name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/notification-service
+  newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/notification-service
+  newTag: sha-2e18ccd
+- name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/order-service
+  newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/order-service
+  newTag: sha-2e18ccd
+- name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/paneldashboard
+  newTag: v2
+- name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/restaurant-service
+  newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/restaurant-service
+  newTag: sha-2e18ccd
