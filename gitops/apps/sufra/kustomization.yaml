@@ -26,9 +26,11 @@ images:
   newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/auth-service
   newTag: sha-2e18ccd
 - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/client
-  newTag: v2
+  newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/client
+  newTag: sha-cef01e4
 - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/dashboard
-  newTag: v2
+  newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/dashboard
+  newTag: sha-cef01e4
 - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/manager-service
   newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/manager-service
   newTag: sha-2e18ccd
@@ -39,7 +41,8 @@ images:
   newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/order-service
   newTag: sha-2e18ccd
 - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/paneldashboard
-  newTag: v2
+  newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/paneldashboard
+  newTag: sha-cef01e4
 - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/restaurant-service
   newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/restaurant-service
   newTag: sha-2e18ccd
