@@ -1,0 +1,114 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:220719767281:certificate/6295452a-f8b7-484e-ab06-00e8acc4c047
+    alb.ingress.kubernetes.io/group.name: sufra
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    alb.ingress.kubernetes.io/target-type: ip
+    sufra/reconcile: "1782914246"
+  finalizers:
+    - group.ingress.k8s.aws/sufra
+  name: sufra-https
+  namespace: sufra
+spec:
+  ingressClassName: alb
+  rules:
+    - host: api.sufra.shop
+      http:
+        paths:
+          - backend:
+              service:
+                name: auth-service
+                port:
+                  number: 3004
+            path: /api/auth
+            pathType: Prefix
+          - backend:
+              service:
+                name: order-service
+                port:
+                  number: 3001
+            path: /api/order
+            pathType: Prefix
+          - backend:
+              service:
+                name: restaurant-service
+                port:
+                  number: 3003
+            path: /api/restaurant
+            pathType: Prefix
+          - backend:
+              service:
+                name: manager-service
+                port:
+                  number: 3006
+            path: /api/manager
+            pathType: Prefix
+          - backend:
+              service:
+                name: notification-service
+                port:
+                  number: 3007
+            path: /api/notification
+            pathType: Prefix
+          - backend:
+              service:
+                name: api-gateway
+                port:
+                  number: 3000
+            path: /
+            pathType: Prefix
+    - host: app.sufra.shop
+      http:
+        paths:
+          - backend:
+              service:
+                name: client
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+          - backend:
+              service:
+                name: order-service
+                port:
+                  number: 3001
+            path: /api/order
+            pathType: Prefix
+          - backend:
+              service:
+                name: restaurant-service
+                port:
+                  number: 3003
+            path: /api/restaurant
+            pathType: Prefix
+          - backend:
+              service:
+                name: manager-service
+                port:
+                  number: 3006
+            path: /api/manager
+            pathType: Prefix
+    - host: dashboard.sufra.shop
+      http:
+        paths:
+          - backend:
+              service:
+                name: dashboard
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+    - host: panel.sufra.shop
+      http:
+        paths:
+          - backend:
+              service:
+                name: paneldashboard
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix

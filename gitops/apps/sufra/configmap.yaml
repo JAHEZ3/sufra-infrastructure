@@ -1,0 +1,15 @@
+apiVersion: v1
+data:
+  CORS_ORIGINS: https://dashboard.sufra.shop,https://app.sufra.shop,https://panel.sufra.shop
+  DB_HOST: sufra-dev-db.cydk0iieqjbc.us-east-1.rds.amazonaws.com
+  DB_NAME: sufra
+  DB_PORT: "5432"
+  NATS_URL: nats://nats.sufra.svc.cluster.local:4222
+  NODE_ENV: production
+  PGSSLMODE: no-verify
+  REDIS_HOST: redis.sufra.svc.cluster.local
+  REDIS_PORT: "6379"
+kind: ConfigMap
+metadata:
+  name: sufra-config
+  namespace: sufra

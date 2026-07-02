@@ -1,0 +1,39 @@
+# ArgoCD Application: the full Sufra platform (backend microservices, frontends,
+# in-cluster infra). ArgoCD watches these manifests in Git and keeps the cluster
+# in sync automatically — push to `main` → auto-deploy to production.
+#
+# sufra-secrets is deliberately NOT in Git (public repo). It is applied
+# out-of-band and never managed/pruned by ArgoCD (ArgoCD only prunes resources
+# it tracks from Git). The RDS master password lives in AWS Secrets Manager.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sufra
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/JAHEZ3/sufra-infrastructure.git
+    targetRevision: main
+    path: gitops/apps/sufra
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: sufra
+
+  syncPolicy:
+    automated:
+      prune: true # delete resources removed from Git
+      selfHeal: true # revert manual drift back to Git state
+    syncOptions:
+      - CreateNamespace=false # namespace.yaml is managed in Git
+      - ApplyOutOfSyncOnly=true # only touch resources that actually differ
+    retry:
+      limit: 3
+      backoff:
+        duration: 10s
+        factor: 2
+        maxDuration: 2m
