@@ -27,10 +27,10 @@ images:
   newTag: sha-ebf4f98
 - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/client
   newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/client
-  newTag: sha-849b630
+  newTag: sha-d206f3f
 - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/dashboard
   newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/dashboard
-  newTag: sha-849b630
+  newTag: sha-d206f3f
 - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/manager-service
   newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/manager-service
   newTag: sha-ebf4f98
@@ -42,7 +42,7 @@ images:
   newTag: sha-ebf4f98
 - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/paneldashboard
   newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/paneldashboard
-  newTag: sha-849b630
+  newTag: sha-d206f3f
 - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/restaurant-service
   newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/restaurant-service
   newTag: sha-ebf4f98
