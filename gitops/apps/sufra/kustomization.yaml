@@ -21,10 +21,10 @@ resources:
 images:
 - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/api-gateway
   newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/api-gateway
-  newTag: sha-885a31b
+  newTag: sha-033cd03
 - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/auth-service
   newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/auth-service
-  newTag: sha-885a31b
+  newTag: sha-033cd03
 - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/client
   newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/client
   newTag: sha-885a31b
@@ -33,16 +33,16 @@ images:
   newTag: sha-885a31b
 - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/manager-service
   newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/manager-service
-  newTag: sha-885a31b
+  newTag: sha-033cd03
 - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/notification-service
   newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/notification-service
-  newTag: sha-885a31b
+  newTag: sha-033cd03
 - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/order-service
   newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/order-service
-  newTag: sha-885a31b
+  newTag: sha-033cd03
 - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/paneldashboard
   newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/paneldashboard
   newTag: sha-885a31b
 - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/restaurant-service
   newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/restaurant-service
-  newTag: sha-885a31b
+  newTag: sha-033cd03
