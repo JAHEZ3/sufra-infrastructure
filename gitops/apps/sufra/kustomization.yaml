@@ -39,7 +39,7 @@ images:
   newTag: sha-033cd03
 - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/order-service
   newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/order-service
-  newTag: sha-033cd03
+  newTag: sha-33fe917
 - name: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/paneldashboard
   newName: 220719767281.dkr.ecr.us-east-1.amazonaws.com/sufra/paneldashboard
   newTag: sha-07729c4
