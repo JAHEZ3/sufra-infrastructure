@@ -147,3 +147,24 @@ spec:
                   number: 80
             path: /
             pathType: Prefix
+    # Marketing site on the root domain (app.sufra.shop stays the client app).
+    - host: sufra.shop
+      http:
+        paths:
+          - backend:
+              service:
+                name: website
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+    - host: www.sufra.shop
+      http:
+        paths:
+          - backend:
+              service:
+                name: website
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix

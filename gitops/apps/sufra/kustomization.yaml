@@ -13,6 +13,7 @@ resources:
 - infra.yaml
 - backend.yaml
 - frontend.yaml
+- website.yaml
 - services.yaml
 - ingress.yaml
 
